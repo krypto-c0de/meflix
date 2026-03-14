@@ -1,17 +1,26 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 export function AppShell() {
   return (
     <div className="app-shell">
       <header className="topbar">
         <Link to="/" className="brand">
-          meflix
+          <span className="brand-me">me</span>
+          <span className="brand-flix">.flix</span>
         </Link>
         <nav className="topnav">
-          <Link to="/">Home</Link>
-          <Link to="/quiz">Criar a minha</Link>
-          <Link to="/preview/demo">Preview</Link>
+          <NavLink to="/" end className={({ isActive }) => `topnav-link${isActive ? " active" : ""}`}>
+            Home
+          </NavLink>
+          <a href="/#como-funciona" className="topnav-link">
+            Como funciona
+          </a>
         </nav>
+        <div className="topbar-actions">
+          <Link to="/quiz" className="btn-nav-cta">
+            Criar a minha →
+          </Link>
+        </div>
       </header>
       <Outlet />
     </div>

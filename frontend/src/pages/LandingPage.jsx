@@ -1,198 +1,333 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 const features = [
   {
-    title: "Você é o protagonista",
-    description: "Sua vida vira série com título, sinopse, elenco, episódios e tom cinematográfico em poucos minutos.",
+    num: "01",
+    icon: "🎬",
+    tag: "Protagonista",
+    accent: true,
+    wide: true,
+    title: "Você no centro da história",
+    description:
+      "Sua vida vira série com título, sinopse, elenco e episódios com tom cinematográfico. Em poucos minutos, do nada ao catálogo.",
   },
   {
-    title: "Visual reconhecível na hora",
-    description: "Primeiro frame forte, contraste alto e clima de catálogo premium para parar o scroll no TikTok.",
+    num: "02",
+    icon: "📲",
+    title: "Visual que para o scroll",
+    description: "Primeiro frame forte e clima de streaming premium. Feito para TikTok e stories.",
   },
   {
-    title: "Feito para compartilhar",
-    description: "A pessoa gera, posta, os amigos comentam ‘faz o meu’ e o loop de aquisição se forma sozinho.",
+    num: "03",
+    icon: "🔁",
+    title: "Loop de aquisição orgânico",
+    description: "Você posta, os amigos comentam, entram no site. O loop se forma sozinho.",
   },
   {
-    title: "Desbloqueio simples por PIX",
-    description: "Prévia grátis para curiosidade. Resultado completo liberado por ticket baixo e impulso social.",
+    num: "04",
+    icon: "⚡",
+    title: "PIX com fricção zero",
+    description: "Ticket baixo, resultado imediato. Sem criar conta, sem cadastro, sem atrito.",
   },
 ];
 
 const testimonials = [
-  "“Ficou absurdo. O elenco parecia ter sido escolhido por alguém que me conhece demais.”",
-  "“Postei nos stories e em 5 minutos já tinham me pedido o link.”",
-  "“Esse tipo de produto viraliza porque todo mundo quer ver a própria versão.”",
-  "“O mais forte é que dá vontade de discordar do elenco e fazer o seu.”",
+  {
+    initials: "IS",
+    color: "#7c3aed",
+    name: "Iskandão",
+    handle: "@iskandao",
+    text: "Ficou absurdo. O elenco parecia ter sido escolhido por alguém que me conhece demais.",
+  },
+  {
+    initials: "MC",
+    color: "#0891b2",
+    name: "Mari Campos",
+    handle: "@maricampos",
+    text: "Postei nos stories e em 5 minutos já tinham me pedido o link. Viralizou antes de eu sair da cama.",
+  },
+  {
+    initials: "RB",
+    color: "#dc2626",
+    name: "Rafael B.",
+    handle: "@rafaelb",
+    text: "Esse tipo de produto viraliza porque todo mundo quer ver a própria versão. Genial.",
+  },
+  {
+    initials: "AN",
+    color: "#059669",
+    name: "Ana Nunes",
+    handle: "@ananunes",
+    text: "O mais forte é que dá vontade de discordar do elenco e fazer o seu. Aí você já pagou.",
+  },
+  {
+    initials: "LP",
+    color: "#d97706",
+    name: "Lucas P.",
+    handle: "@lucasp",
+    text: "Meu grupo inteiro fez o dele no mesmo dia. Ficamos discutindo os elencos por horas.",
+  },
 ];
 
 const faqs = [
   {
     q: "Quanto tempo leva para gerar?",
-    a: "O fluxo foi pensado para ser rápido: responder, gerar a prévia e decidir se quer desbloquear o resultado completo.",
+    a: "O fluxo foi pensado para ser rápido: quiz em 2 minutos, prévia gerada na hora, desbloqueio imediato via PIX.",
   },
   {
     q: "Preciso criar conta?",
-    a: "Não no MVP. A proposta é reduzir atrito e ir direto para o resultado.",
+    a: "Não. A proposta é reduzir o atrito ao mínimo. Entra, responde, gera, paga, compartilha.",
   },
   {
     q: "O que vem no resultado completo?",
-    a: "Título, tagline, sinopse final, elenco, episódios marcantes e estrutura pronta para compartilhar.",
+    a: "Título definitivo, tagline, sinopse completa, elenco total, 3 episódios marcantes com resumo e estrutura pronta para compartilhar.",
   },
   {
-    q: "É só brincadeira ou dá para monetizar?",
-    a: "A lógica do produto é justamente unir entretenimento viral com cobrança leve por geração.",
+    q: "Posso gerar mais de uma vez?",
+    a: "Sim. Cada geração é uma nova série. Muita gente faz pra si e depois testa pra amigos também.",
   },
 ];
 
+function FaqItem({ q, a, defaultOpen }) {
+  const [open, setOpen] = React.useState(Boolean(defaultOpen));
+
+  return (
+    <div className={`faq-item ${open ? "open" : ""}`} onClick={() => setOpen((value) => !value)}>
+      <div className="faq-q">
+        <span>{q}</span>
+        <div className="faq-icon">{open ? "−" : "+"}</div>
+      </div>
+      {open ? <p className="faq-a">{a}</p> : null}
+    </div>
+  );
+}
+
 export function LandingPage() {
+  const allTestimonials = [...testimonials, ...testimonials];
+
   return (
     <main className="landing-page">
-      <section className="landing-hero">
-        <div className="container hero-content">
-          <div className="hero-badge">
-            <div className="avatar-stack">
-              <span />
-              <span />
-              <span />
+      <section className="lp-hero-wrap">
+        <div className="lp-hero">
+          <div className="lp-hero-left">
+            <div className="lp-hero-badge">
+              <span className="lp-badge-dot" />
+              Feito para viralizar em grupo, casal e amigos
             </div>
-            <span>feito para viralizar em grupo, casal e amigos</span>
-          </div>
 
-          <h1>Sua vida como série de streaming em 2 minutos.</h1>
-          <p className="hero-sub">
-            Descubra título, elenco, sinopse e episódios da sua própria série. Gere a prévia, desbloqueie o resultado e poste.
-          </p>
+            <h1 className="lp-hero-title">
+              Sua vida
+              <br />
+              como <em>série</em>
+              <br />
+              de streaming.
+            </h1>
 
-          <div className="hero-actions">
-            <Link to="/quiz" className="btn-primary">
-              Fazer a minha
-            </Link>
-            <a href="#examples" className="btn-ghost">
-              Ver exemplos
-            </a>
-          </div>
+            <p className="lp-hero-sub">
+              Responde o quiz, a IA gera título, elenco, sinopse e episódios. Veja a prévia de
+              graça - desbloqueie o resultado completo por R$ 4,90.
+            </p>
 
-          <div id="examples" className="hero-showcase">
-            <article className="showcase-card spotlight">
-              <span className="showcase-tag">Nova série</span>
-              <h3>Iskandão: Temporada de Decisões Duvidosas</h3>
-              <p>
-                Um drama pop sobre caos profissional, romance mal resolvido e energia de protagonista que não pede licença.
-              </p>
-              <div className="showcase-meta">
-                <span>Drama romântico</span>
-                <span>4.9</span>
+            <div className="lp-hero-actions">
+              <Link to="/quiz" className="btn-primary">
+                Fazer a minha →
+              </Link>
+              <a href="#como-funciona" className="btn-ghost">
+                Como funciona
+              </a>
+            </div>
+
+            <div className="lp-stats">
+              <div className="lp-stat">
+                <span className="lp-stat-num">2min</span>
+                <span className="lp-stat-label">do quiz ao resultado</span>
               </div>
-            </article>
-
-            <article className="showcase-card">
-              <span className="showcase-tag subtle">Elenco</span>
-              <p>Wagner Moura, Bruna Marquezine, Sophie Charlotte e uma participação que todo mundo vai marcar.</p>
-            </article>
-
-            <article className="showcase-card">
-              <span className="showcase-tag subtle">Loop viral</span>
-              <p>Faz o seu. Posta. O grupo comenta. Entram no site. Pagam. Compartilham. Repete.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="landing-section">
-        <div className="container section-header">
-          <span className="section-kicker">Por que funciona</span>
-          <h2>Produto de identidade pessoal com cara de catálogo premium.</h2>
-          <p>
-            O valor não está só na IA. Está na mistura de protagonismo, visual reconhecível e vontade de compartilhar.
-          </p>
-        </div>
-
-        <div className="container features-grid">
-          {features.map((feature) => (
-            <article key={feature.title} className="feature-card">
-              <h3>{feature.title}</h3>
-              <p>{feature.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="landing-section">
-        <div className="container section-header">
-          <span className="section-kicker">Como funciona</span>
-          <h2>Curto, visual e feito para celular.</h2>
-        </div>
-
-        <div className="container steps-grid">
-          <article className="step-card">
-            <strong>1</strong>
-            <h3>Responda o quiz</h3>
-            <p>Poucas perguntas para capturar o tom, o caos e a vibe da sua temporada.</p>
-          </article>
-          <article className="step-card">
-            <strong>2</strong>
-            <h3>Veja a prévia</h3>
-            <p>Título, elenco inicial e sinopse parcial suficientes para gerar desejo.</p>
-          </article>
-          <article className="step-card">
-            <strong>3</strong>
-            <h3>Desbloqueie por PIX</h3>
-            <p>Resultado completo liberado com ticket baixo e fricção mínima.</p>
-          </article>
-        </div>
-      </section>
-
-      <section className="landing-section overflow-hidden">
-        <div className="container section-header">
-          <span className="section-kicker">Social proof</span>
-          <h2>O tipo de reação que puxa o próximo usuário.</h2>
-        </div>
-
-        <div className="testimonials-wrap">
-          <div className="testimonials-track">
-            {[...testimonials, ...testimonials].map((item, index) => (
-              <article key={`${item}-${index}`} className="testimonial-card">
-                <p>{item}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="landing-section">
-        <div className="container faq-shell">
-          <div className="section-header left">
-            <span className="section-kicker">FAQ</span>
-            <h2>Perguntas rápidas antes do primeiro teste.</h2>
+              <div className="lp-stat">
+                <span className="lp-stat-num">R$4,90</span>
+                <span className="lp-stat-label">acesso completo</span>
+              </div>
+              <div className="lp-stat">
+                <span className="lp-stat-num">100%</span>
+                <span className="lp-stat-label">gerado por IA</span>
+              </div>
+            </div>
           </div>
 
-          <div className="faq-list">
-            {faqs.map((item) => (
-              <article key={item.q} className="faq-item">
-                <div className="faq-question">
-                  <span>{item.q}</span>
-                  <span>+</span>
+          <div className="lp-hero-right">
+            <div className="lp-preview-card">
+              <div className="lp-preview-header">
+                <div className="lp-preview-tag">● Preview gerado</div>
+                <div className="lp-preview-title">Iskandão: Temporada de Decisões Duvidosas</div>
+                <div className="lp-preview-sub">Drama romântico · 8 episódios · 4.9 ★</div>
+              </div>
+
+              <div className="lp-preview-body">
+                <div className="lp-preview-row">
+                  <div className="lp-preview-row-label">Elenco principal</div>
+                  <div className="lp-preview-row-val">
+                    Wagner Moura, Bruna Marquezine, Sophie Charlotte
+                  </div>
                 </div>
-                <p className="faq-answer">{item.a}</p>
+
+                <div className="lp-preview-row">
+                  <div className="lp-preview-row-label">Trecho da sinopse</div>
+                  <div className="lp-preview-row-val">
+                    Um homem que achava que tinha a vida sob controle até o universo resolver...
+                  </div>
+                </div>
+
+                <div className="lp-preview-row locked">
+                  <div className="lp-preview-row-label">🔒 Episódios completos</div>
+                  <div className="lp-preview-row-val">Bloqueado até o PIX</div>
+                </div>
+              </div>
+
+              <div className="lp-preview-footer">
+                <div className="lp-preview-price">
+                  <span>R$</span>4,90
+                </div>
+                <Link to="/quiz" className="btn-unlock-sm">
+                  Desbloquear →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="lp-section">
+        <div className="container">
+          <span className="section-kicker">Por que funciona</span>
+          <h2 className="lp-section-title">Identidade pessoal com cara de catálogo premium.</h2>
+          <p className="lp-section-sub">
+            O valor não está só na IA. Está na mistura de protagonismo, visual reconhecível e
+            vontade de compartilhar.
+          </p>
+
+          <div className="lp-bento">
+            {features.map((feature) => (
+              <article
+                key={feature.title}
+                className={`lp-bento-card ${feature.accent ? "accent" : ""} ${feature.wide ? "wide" : ""}`}
+              >
+                <span className="lp-bento-num">{feature.num}</span>
+                <div className={`lp-bento-icon ${feature.accent ? "red" : "dim"}`}>
+                  {feature.icon}
+                </div>
+                {feature.tag ? <div className="lp-bento-tag">● {feature.tag}</div> : null}
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="landing-section final-cta">
-        <div className="container final-cta-card">
-          <span className="section-kicker">Pronto para testar?</span>
-          <h2>Descubra qual série o algoritmo faria sobre você.</h2>
-          <p>Comece pela prévia. Se ficar bom, desbloqueie e compartilhe.</p>
-          <div className="hero-actions">
-            <Link to="/quiz" className="btn-primary">
-              Gerar minha série
-            </Link>
+      <section className="lp-section lp-section-tinted" id="como-funciona">
+        <div className="container">
+          <span className="section-kicker">Como funciona</span>
+          <h2 className="lp-section-title">Três passos. Dois minutos. Uma série.</h2>
+
+          <div className="lp-steps">
+            <div className="lp-step">
+              <div className="lp-step-circle">1</div>
+              <div>
+                <h3>Responda o quiz</h3>
+                <p>Poucas perguntas sobre tom, caos e vibe da sua temporada. Rápido e direto.</p>
+              </div>
+            </div>
+
+            <div className="lp-step">
+              <div className="lp-step-circle lp-step-circle--active">2</div>
+              <div>
+                <h3>Veja a prévia</h3>
+                <p>Título, elenco e sinopse parcial gerados na hora. Suficiente pra gerar desejo.</p>
+              </div>
+            </div>
+
+            <div className="lp-step">
+              <div className="lp-step-circle">3</div>
+              <div>
+                <h3>Desbloqueie e poste</h3>
+                <p>Resultado completo por R$ 4,90 via PIX. Compartilhe e observe o loop.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
+      <section className="lp-section" style={{ paddingBottom: 0 }}>
+        <div className="container">
+          <span className="section-kicker">Reações reais</span>
+          <h2 className="lp-section-title">O tipo de comentário que puxa o próximo.</h2>
+        </div>
+
+        <div className="lp-testimonials-wrap">
+          <div className="lp-testimonials-track">
+            {allTestimonials.map((testimonial, index) => (
+              <div key={`${testimonial.handle}-${index}`} className="lp-tcard">
+                <div className="lp-tcard-head">
+                  <div className="lp-tcard-avatar" style={{ background: testimonial.color }}>
+                    {testimonial.initials}
+                  </div>
+                  <div>
+                    <div className="lp-tcard-name">{testimonial.name}</div>
+                    <div className="lp-tcard-handle">{testimonial.handle}</div>
+                  </div>
+                  <div className="lp-tcard-stars">★★★★★</div>
+                </div>
+                <p>"{testimonial.text}"</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="lp-section">
+        <div className="container">
+          <div className="lp-faq-grid">
+            <div className="lp-faq-sticky">
+              <span className="section-kicker">FAQ</span>
+              <h2 className="lp-section-title">Dúvidas antes do primeiro teste.</h2>
+              <p className="lp-section-sub" style={{ marginTop: 12 }}>
+                Se ainda tiver alguma, é só gerar e ver.
+              </p>
+              <Link to="/quiz" className="btn-primary" style={{ width: "fit-content", marginTop: 8 }}>
+                Fazer a minha →
+              </Link>
+            </div>
+
+            <div className="lp-faq-list">
+              {faqs.map((item, index) => (
+                <FaqItem key={item.q} q={item.q} a={item.a} defaultOpen={index === 0} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="lp-final-cta">
+        <span className="section-kicker">Pronto?</span>
+        <h2>Descubra qual série o algoritmo faria sobre você.</h2>
+        <p>Começa pela prévia grátis. Se ficar bom - e vai ficar - desbloqueie e poste.</p>
+        <div className="lp-hero-actions">
+          <Link to="/quiz" className="btn-primary">
+            Gerar minha série →
+          </Link>
+          <a href="#como-funciona" className="btn-ghost">
+            Ver como funciona
+          </a>
+        </div>
+      </div>
+
+      <footer className="lp-footer">
+        <span className="brand">
+          <span className="brand-me">me</span>
+          <span className="brand-flix">.flix</span>
+        </span>
+        <p>Feito para viralizar. © 2026</p>
+      </footer>
     </main>
   );
 }

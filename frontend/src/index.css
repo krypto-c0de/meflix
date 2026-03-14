@@ -209,6 +209,14 @@ h1 {
   background: linear-gradient(180deg, rgba(6, 6, 6, 0), rgba(6, 6, 6, 0.92) 35%);
 }
 
+.form-grid .mobile-sticky-actions,
+.card .mobile-sticky-actions {
+  position: static;
+  bottom: auto;
+  padding-top: 0;
+  background: transparent;
+}
+
 .grid {
   display: grid;
   gap: 18px;

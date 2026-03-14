@@ -4,7 +4,7 @@ export const env = {
   port: Number(process.env.PORT || 3000),
   frontendUrl: process.env.FRONTEND_URL || "http://localhost:5173",
   supabaseUrl: process.env.SUPABASE_URL || "",
-  supabaseKey: process.env.SUPABASE_KEY || "",
+  supabaseKey: process.env.SUPABASE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || "",
   geminiApiKey: process.env.GEMINI_API_KEY || "",
   abacatePayApiKey: process.env.ABACATEPAY_API_KEY || "",
   abacatePayPublicKey: process.env.ABACATEPAY_PUBLIC_KEY || "",
@@ -13,7 +13,14 @@ export const env = {
 };
 
 export function requireEnvVars(names) {
-  const missing = names.filter((name) => !process.env[name]);
+  const aliasMap = {
+    SUPABASE_KEY: process.env.SUPABASE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY,
+  };
+
+  const missing = names.filter((name) => {
+    if (aliasMap[name]) return false;
+    return !process.env[name];
+  });
 
   if (missing.length > 0) {
     const error = new Error(`Variáveis ausentes: ${missing.join(", ")}.`);
